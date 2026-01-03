@@ -12,9 +12,14 @@ type Slot = {
     value: number;
 };
 
+enum Status{
+    Undefined = "Undefined",
+    Defined = "Defined"
+}
+
 const numbers:number[] = [0,1,2,3,4,5,6,7,8,9];
 
-function spin(): number | undefined {
+async function spin(): Promise<number | undefined> {
   if (numbers.length === 0) return undefined;
 
   const array = new Uint32Array(1);
@@ -27,18 +32,31 @@ function spin(): number | undefined {
 export default class LotteryMachine implements Machine {
     displayed: number[];
     private winningSequence: number[][];
-    public slots: number[];
 
     constructor(winningSequence:number[][]) {
-        this.slots = [1, 2, 3, 4]
         this.displayed = [0, 0, 0, 0];
         this.winningSequence = winningSequence;
     }
 
-    pulllever(){
-        for(const disp of this.displayed.keys()){
-            const result = spin();
-            this.displayed[disp] = result !== undefined ? result : 0;
-        }
+    async pulllever(): Promise<Status> {
+    for (const i of this.displayed.keys()) {
+        const result = await spin();
+        this.displayed[i] = result ?? 0;
     }
+
+    return this.displayed.includes(0)
+        ? Status.Undefined
+        : Status.Defined;
+    }
+
+    async victoryCheck(): Promise<boolean> {
+    const res = await this.pulllever();
+    if (res !== Status.Defined) return false;
+
+    return this.winningSequence.some(seq =>
+        seq.length === this.displayed.length &&
+        seq.every((v, i) => v === this.displayed[i])
+    );
+    }
+
 }
