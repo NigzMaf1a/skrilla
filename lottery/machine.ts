@@ -1,7 +1,7 @@
-//Rules of the lottery machine go here
+//Rules of the lottery machine 
 /*
     -- The machine has four displays that each show a number from 0-9.
-    --Winning sequences are set in the manual
+    --Winning sequences are set by the management
 */
 type Machine = {
     displayed: number[];
@@ -17,7 +17,7 @@ enum Status{
     Defined = "Defined"
 }
 
-const numbers:number[] = [0,1,2,3,4,5,6,7,8,9];
+const numbers:number[] = [1,2,3,4,5,6,7,8,9];
 
 async function spin(): Promise<number | undefined> {
   if (numbers.length === 0) return undefined;
