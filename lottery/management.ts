@@ -1,7 +1,3 @@
-// ==============================
-// Domain Types
-// ==============================
-
 type WinningSequence = number[];
 
 // Enter Winning Sequences here
