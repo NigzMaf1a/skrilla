@@ -1,4 +1,4 @@
-//Rules of the
+//Rules of
 /*
     -- The machine has four displays that each show a number from 0-9.
     --Winning sequences are set by the management
