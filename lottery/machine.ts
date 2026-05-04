@@ -1,4 +1,4 @@
-//Rules of the lottery machine 
+//Rules of the lottery 
 /*
     -- The machine has four displays that each show a number from 0-9.
     --Winning sequences are set by the management
